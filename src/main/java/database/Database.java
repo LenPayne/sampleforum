@@ -56,4 +56,18 @@ public class Database {
         }
         return json;
     }
+    
+    public static int doUpdate(String sql, String... params) {
+        int result = -1;
+        try {
+            Connection conn = getConnection();
+            PreparedStatement pstmt = conn.prepareStatement(sql);
+            for (int i = 0; i < params.length; i++)
+                pstmt.setString(i+1, params[i]);
+            result = pstmt.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(Database.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
 }
