@@ -4,11 +4,45 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <title>Welcome to Monday</title>
-
+  <script src="http://code.jquery.com/jquery.min.js"></script>
+  <script>
+      $(document).ready(function() {
+         var getForum = function() {
+             $.getJSON("./f/forum", function(data) {
+                 $('#forum').html('');
+                for (var i = 0; i < data.length; i++)
+                $('#forum').append("<h2>" + data[i].name + "</h2><p>" + data[i].text + "</p>");
+             });
+         } 
+         getForum();
+         
+         var sendForum = function() {
+             $.ajax({
+                 url: "./f/forum",
+                 data: JSON.stringify({
+                     "name" : $('#name').val(),
+                     "text" : $('#text').val()
+                 }),
+                 contentType: 'application/json',
+                 success: function() {
+                     getForum();
+                     $('#name').val('');
+                     $('#text').val('');
+                 }
+             })             
+         }
+         $('#send').click(sendForum);
+      });
+  </script>
 
 </head>
 <body>
-    <h1>Monday</h1>
+    <div id="form">
+        <p>Name: <input id="name" /></p>
+        <p><textarea id="text"></textarea></p>
+        <p><button id="send">Send</button></p>         
+    </div>
+    <div id="forum"></div>
 
 </body>
 </html>
