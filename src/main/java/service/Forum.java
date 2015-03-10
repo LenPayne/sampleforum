@@ -30,6 +30,7 @@ public class Forum {
     
     @POST
     @Consumes("application/json")
+    @Produces("application/json")
     public Response addOne(JsonObject json) {
         String name = json.getString("name");
         String text = json.getString("text");
@@ -37,6 +38,6 @@ public class Forum {
         if (result <= 0)
             return Response.status(500).build();
         else
-            return Response.ok().build();
+            return Response.ok(json).build();
     }
 }
