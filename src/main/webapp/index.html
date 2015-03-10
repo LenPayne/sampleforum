@@ -27,7 +27,7 @@
                         dataType: "json",
                         contentType: 'application/json; charset=UTF-8',
                         success: function() {
-                            setTimeout(getForum, 2000);
+                            setTimeout(getForum(), 2000);
                             $('#name').val('');
                             $('#text').val('');
                         }
