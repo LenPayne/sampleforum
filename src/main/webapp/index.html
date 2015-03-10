@@ -8,6 +8,8 @@
         <script>
             $(document).ready(function() {
                 var getForum = function() {
+                    $('#name').val('');
+                    $('#text').val('');
                     $.getJSON("./f/forum", function(data) {
                         $('#forum').html('');
                         for (var i = 0; i < data.length; i++)
@@ -26,11 +28,7 @@
                         method: "post",
                         dataType: "json",
                         contentType: 'application/json; charset=UTF-8',
-                        success: function() {
-                            setTimeout(getForum(), 2000);
-                            $('#name').val('');
-                            $('#text').val('');
-                        }
+                        success: getForum
                     })
                 }
                 $('#send').click(sendForum);
